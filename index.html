@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Fourth Anniversary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Caveat:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <noscript><style>#gate { display: none; }</style></noscript>
+
+  <!-- Password screen. The code is set at the top of the gate block in script.js (CODE). -->
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Enter the secret code">
+    <div class="gate-hearts" id="gate-hearts" aria-hidden="true"></div>
+    <div class="gate-card">
+
+      <div class="stage" id="stage-lock">
+        <div class="gate-seal" aria-hidden="true">♥</div>
+        <p class="gate-eyebrow">For Roshni</p>
+        <p class="gate-title">Enter our secret code</p>
+        <form id="gate-form" autocomplete="off">
+          <label class="sr-only" for="code">Secret code</label>
+          <input id="code" name="code" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="••••" autocomplete="off">
+          <button class="gate-btn" type="submit">Open</button>
+        </form>
+        <p class="gate-msg" id="gate-msg" role="alert"></p>
+      </div>
+
+      <div class="stage" id="stage-count" hidden aria-live="polite">
+        <p class="gate-eyebrow" id="count-label">Midnight is coming</p>
+        <div class="date">
+          <span class="day"><span class="d d-old">20</span><span class="d d-new" aria-hidden="true">21</span></span>
+          <span class="my">November<br>2026</span>
+        </div>
+        <div class="gate-count" id="count-num" role="timer">10</div>
+        <div class="bar" aria-hidden="true"><span id="bar"></span></div>
+        <p class="gate-line" id="count-line">Almost there...</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Background song (audio/song.mp3): starts when the code is right, loops, and pauses while any video plays. -->
+  <audio id="bgm" src="audio/song.mp3" loop preload="auto"></audio>
+  <button class="music-btn" id="music-btn" type="button" aria-label="Turn the song off" aria-pressed="true" hidden><span aria-hidden="true">&#9835;</span></button>
+
+  <header class="hero">
+    <div class="hearts" aria-hidden="true">
+      <span style="--x:6%;--d:0s;--s:.9rem;--t:10s">♥</span>
+      <span style="--x:18%;--d:2.5s;--s:1.3rem;--t:12s">♥</span>
+      <span style="--x:31%;--d:5s;--s:.8rem;--t:9s">♥</span>
+      <span style="--x:47%;--d:1s;--s:1.1rem;--t:11s">♥</span>
+      <span style="--x:62%;--d:3.5s;--s:1.5rem;--t:13s">♥</span>
+      <span style="--x:76%;--d:6s;--s:.9rem;--t:10s">♥</span>
+      <span style="--x:90%;--d:4s;--s:1.2rem;--t:12s">♥</span>
+    </div>
+
+    <div class="wrap">
+      <p class="eyebrow">Happy anniversary</p>
+      <h1>Four years of <em>you and me</em></h1>
+
+      <!-- Hero photo: the file is images/hero.jpg. Tap it for a burst of hearts (see script.js). -->
+      <div class="portrait" tabindex="0" role="button" aria-label="Our photo. Tap for a burst of hearts">
+        <span class="spark" style="top:10%;right:-18px;font-size:1.3rem;animation-delay:1.4s" aria-hidden="true">✦</span>
+        <span class="spark" style="top:46%;left:-26px;font-size:1rem;animation-delay:2s" aria-hidden="true">✦</span>
+        <span class="spark" style="bottom:6%;left:-14px;font-size:1.4rem;animation-delay:1.8s" aria-hidden="true">✦</span>
+        <span class="spark" style="top:-14px;left:22%;font-size:0.9rem;animation-delay:2.4s" aria-hidden="true">✦</span>
+        <div class="frame" aria-hidden="true"><img src="images/hero.jpg" alt="" decoding="async"></div>
+        <div class="badge"><strong>4</strong><span>years</span></div>
+      </div>
+
+      <p class="lede">To my Roshni, thank you for every day of these four years.</p>
+      <p class="tap-hint">Tap our photo ♥</p>
+    </div>
+  </header>
+
+  <!-- Photo album: one photo per page. Tap the page (or swipe) to turn it. To add a picture, copy one <img> line in the list below and change the file name. -->
+  <section class="wrap album" id="moments" aria-labelledby="moments-title">
+    <p class="eyebrow">Our album</p>
+    <h2 id="moments-title">A few of my favorites</h2>
+    <p class="hint">Tap the page to turn it.</p>
+
+    <div class="book" id="book" tabindex="0" role="button" aria-label="Photo album. Tap to turn the page.">
+      <div class="spine" aria-hidden="true"></div>
+      <div class="page is-top" id="page-a" aria-hidden="true"><img alt=""></div>
+      <div class="page is-under" id="page-b" aria-hidden="true"><img alt=""></div>
+    </div>
+
+    <div class="album-ui">
+      <button class="anav" id="aprev" type="button" aria-label="Previous photo">←</button>
+      <span class="acount" id="acount" aria-live="polite">1 / 16</span>
+      <button class="anav" id="anext" type="button" aria-label="Next photo">→</button>
+    </div>
+
+    <div id="pages" hidden>
+      <img src="images/photo-01.jpg" alt="Our photo 1" data-pos="50% 22%">
+      <img src="images/photo-02.jpg" alt="Our photo 2" data-pos="50% 30%">
+      <img src="images/photo-03.jpg" alt="Our photo 3" data-pos="50% 25%">
+      <img src="images/photo-04.jpg" alt="Our photo 4" data-pos="50% 45%">
+      <img src="images/photo-05.jpg" alt="Our photo 5" data-pos="50% 12%">
+      <img src="images/photo-06.jpg" alt="Our photo 6" data-pos="50% 15%">
+      <img src="images/photo-07.jpg" alt="Our photo 7" data-pos="50% 30%">
+      <img src="images/photo-08.jpg" alt="Our photo 8" data-pos="50% 15%">
+      <img src="images/photo-09.jpg" alt="Our photo 9" data-pos="50% 25%">
+      <img src="images/photo-10.jpg" alt="Our photo 10" data-pos="50% 15%">
+      <img src="images/photo-11.jpg" alt="Our photo 11" data-pos="67% 50%">
+      <img src="images/photo-12.jpg" alt="Our photo 12" data-pos="50% 25%">
+      <img src="images/photo-13.jpg" alt="Our photo 13" data-pos="50% 0%">
+      <img src="images/photo-14.jpg" alt="Our photo 14" data-pos="50% 12%">
+      <img src="images/photo-15.jpg" alt="Our photo 15" data-pos="50% 5%">
+      <img src="images/photo-16.jpg" alt="Our photo 16" data-pos="43% 50%">
+    </div>
+  </section>
+
+  <!-- Video: hidden behind a card. Tap the card, the doors swing open and the video plays (see script.js). The file is video/our-video.mp4. -->
+  <section class="wrap split" id="video" aria-labelledby="video-title">
+    <div class="intro">
+      <p class="eyebrow">A little film</p>
+      <h2 id="video-title">Something for you</h2>
+      <p class="hint">Tap the card to open it, then turn to page 2.</p>
+    </div>
+    <div class="film-pager" id="film-pager">
+    <div class="film-page on" data-page="1">
+      <div class="film" id="film">
+      <video id="film-video" src="video/our-video.mp4" poster="images/video-poster.jpg" playsinline preload="metadata" aria-label="Our anniversary video"></video>
+      <button class="film-card" id="film-card" type="button" aria-label="Open the card and play the video">
+        <span class="door door-l"></span>
+        <span class="door door-r"></span>
+        <span class="film-center">
+          <span class="film-seal" aria-hidden="true">♥</span>
+          <span class="film-title">For you</span>
+          <span class="film-tap">Tap to open</span>
+        </span>
+      </button>
+    </div>
+      </div>
+      <div class="film-page" data-page="2">
+        <div class="film tall" id="film2">
+          <video id="film-video2" src="video/our-video-2.mp4" poster="images/video2-poster.jpg" playsinline preload="metadata" aria-label="Our second video"></video>
+          <button class="film-card" id="film-card2" type="button" aria-label="Open the card and play the second video">
+            <span class="door door-l"></span>
+            <span class="door door-r"></span>
+            <span class="film-center">
+              <span class="film-seal" aria-hidden="true">♥</span>
+              <span class="film-title">Page 2</span>
+              <span class="film-tap">Tap to open</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+      <div class="film-nav" id="film-nav">
+        <button type="button" class="fn-btn" id="film-prev" aria-label="Previous page">&#8249;</button>
+        <span class="fn-dots" aria-hidden="true"><i class="on"></i><i></i></span>
+        <span class="fn-count" id="film-count">Page 1 of 2</span>
+        <button type="button" class="fn-btn" id="film-next" aria-label="Next page">&#8250;</button>
+      </div>
+  </section>
+
+  <main>
+    <section class="wrap split" id="letter">
+      <div class="intro">
+        <p class="eyebrow">A letter</p>
+        <h2>For you, my Roshni</h2>
+        <p class="hint">Tap the folder to open it.</p>
+      </div>
+
+      <details class="folder">
+        <summary>
+          <span class="folder-tab">For Roshni</span>
+          <span class="folder-body">
+            <span class="seal" aria-hidden="true">♥</span>
+            <span class="folder-text">
+              <span class="folder-label">My letter to you</span>
+              <span class="folder-hint when-closed">Tap to open</span>
+              <span class="folder-hint when-open">Tap to close</span>
+            </span>
+          </span>
+        </summary>
+
+        <article class="letter">
+          <p class="dear">To My Forever Love, My Roshni 🫀🌹</p>
+          <p>Happyyyyyyyy 4th Anniversaryyyyyyy, my loveeeeeeeee! 😫😘🫂</p>
+          <p>Today is not just another day for me. Today marks four beautiful years of us, four years of loving each other, fighting for each other, missing each other, and choosing each other despite everything life has put us through.</p>
+          <p>Roshni, you know what? Our journey was never easy. We faced so many family issues, so many struggles, so many difficult situations that sometimes even staying together felt impossible. There were moments when everything seemed to be falling apart. We even stopped talking for months, and those months were honestly some of the hardest times for me. I missed you, I missed your voice, your presence, your love, and everything about you. But somewhere deep in my heart, I always knew that our story wasn't over.</p>
+          <p>And look at us todayyyyy! After all those tears, struggles, misunderstandings, distance, and difficult days, WE MADE IT! 🫂</p>
+          <p>With the grace and blessings of our Mahadev Ji, we are celebrating our fourth anniversary together. I genuinely believe that if two hearts are meant to be together, no matter how difficult the journey becomes, they will always find their way back to each other. And that's exactly what happened with us. 🧿</p>
+          <p>My love, I don't just want you for today, tomorrow, or a few more years. I WANT YOU FOR THE REST OF MY LIFE. I want to grow old with you, celebrate every little happiness with you, fight through every difficult situation with you, hold your hand when life gets hard, and love you even more with every passing year.</p>
+          <p>If there are a thousand universes, I want you in every single one of them. If there are a thousand Janams, I want to fall in love with you in every single Janam. I don't want a different love story or a different person. I WANT YOU, ONLY YOU, EVERY TIME, IN EVERY UNIVERSE, IN EVERY JANAM. 👩‍❤️‍💋‍👨</p>
+          <p>You have become my heart, my happiness, my peace, my strength, my everything. You are not just Roshni to me; you are literally the Roshni of my life. And one day, I want to change that beautiful name from Roshni Solanki to Roshni Rishi Chouhan. 😫😘🌹 I want that day to be one of the most beautiful days of our lives.</p>
+          <p>I promise you that I'll keep choosing you, loving you, respecting you, and standing beside you. I know we aren't perfect, and our relationship isn't a fairytale without problems, but I don't need a perfect relationship. I just need YOU, and I want us to keep making our imperfect love story more beautiful together.</p>
+          <p>Thank you for not giving up on us. Thank you for being my person. Thank you for coming back into my life and giving our love another chance.</p>
+          <p>And lastlyyyyy, meri jaan, I just want to sayyyyy...</p>
+          <p class="shout">I LOVEEEEEEEEEEEE YOUUUUUUUUUUU SOOOOOOOOOOOOO MUCHHHHHHHHHHH, MY DARLINGGGGGGGGGGGGGGGGG! 😫😘🫀</p>
+          <p>I LOVEEEEEEEE YOUUUUUUUUU FROM THE BOTTOMMMMM OF MY HEARTTTTTTTTT. No words, no paragraphs, and no amount of love can ever explain how much you mean to me.</p>
+          <p>Happy 4th Anniversary, my forever girl. Here's to us, our love, our future, and all the beautiful years waiting for us.</p>
+          <p class="shout">YOU ARE MY TODAY, MY TOMORROW, MY EVERY JANAM, AND MY FOREVER. 🫀🫂🌹👩‍❤️‍💋‍👨😘</p>
+          <p class="shout">I LOVE YOU, MY ROSHNIIIIIIIIIIII! FOREVER AND EVER. 😫🧿</p>
+        </article>
+      </details>
+    </section>
+
+    <section class="wrap split" id="years">
+      <div class="intro">
+        <p class="eyebrow">Our story</p>
+        <h2>2022 to 2026, together</h2>
+        <p class="hint">Four years of us, one year at a time.</p>
+      </div>
+      <ol class="timeline">
+        <li>
+          <span class="yr">2022</span>
+          <h3>Where it began</h3>
+          <p>The year our story started.</p>
+        </li>
+        <li>
+          <span class="yr">2023</span>
+          <h3>Falling deeper</h3>
+          <p>Every day we learned a little more about each other.</p>
+        </li>
+        <li>
+          <span class="yr">2024</span>
+          <h3>Holding on</h3>
+          <p>Hard days came, and we kept choosing each other.</p>
+        </li>
+        <li>
+          <span class="yr">2025</span>
+          <h3>Growing stronger</h3>
+          <p>We learned that love needs patience, and we kept going.</p>
+        </li>
+        <li class="now">
+          <span class="yr">2026</span>
+          <h3>Four years of us</h3>
+          <p>Today we celebrate four beautiful years together.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Love has no reason: the lines appear one by one when this part scrolls into view (see script.js). -->
+    <section class="wrap noreason" id="noreason" aria-labelledby="nr-title">
+      <p class="eyebrow">Why I love you</p>
+      <p class="nr-q" id="nr-title">Why do I love you?</p>
+      <p class="nr-a">There is no <span class="nr-word">reason</span>.</p>
+      <p class="nr-b">Love is never about reasons.</p>
+      <div class="kiss-field" id="kiss-field" aria-hidden="true"></div>
+      <button class="nr-heart" id="nr-heart" type="button" aria-label="Tap for a burst of kisses">
+        <span class="nr-ring"></span>
+        <span class="nr-ring r2"></span>
+        <span class="nr-core" aria-hidden="true">♥</span>
+      </button>
+      <p class="nr-c">I just love you,<span class="nr-name">Roshni Rishi Chouhan</span></p>
+      <p class="nr-kisses" aria-hidden="true"><span style="--i:0">💋</span><span style="--i:1">💋</span><span style="--i:2">💋</span><span style="--i:3">💋</span><span style="--i:4">💋</span><span style="--i:5">💋</span><span style="--i:6">💋</span></p>
+      <p class="nr-tap">Tap the heart for a kiss</p>
+    </section>
+
+    <!-- Hug: the real hug photo (images/hug.jpg) floats and tilts when touched or dragged. Then the words appear letter by letter. -->
+    <section class="wrap hug" id="hug" aria-labelledby="hug-title">
+      <p class="eyebrow">Come here</p>
+      <div class="hug-scene" id="hug-scene">
+        <div class="hug-hearts" aria-hidden="true"><span>&#9829;</span><span>&#9829;</span><span>&#9829;</span><span>&#9829;</span><span>&#9829;</span></div>
+        <div class="hug-photo" id="hug-photo">
+          <img src="images/hug.jpg" alt="Rishi and Roshni hugging" width="860" height="1146" loading="lazy">
+          <span class="hug-shine" aria-hidden="true"></span>
+        </div>
+        <p class="hug-move">Touch and move the photo</p>
+      </div>
+      <h2 class="hug-say" id="hug-title" aria-label="I love you darling, Meri jaan">
+        <span class="hug-l1" aria-hidden="true"></span>
+        <span class="hug-l2" aria-hidden="true"></span>
+      </h2>
+      <p class="hug-sub">A hug from me, always.</p>
+    </section>
+
+    <!-- Finale: tap the kiss seal, kisses burst, the video appears and plays. When it ends, a kiss shower and a message show.
+         The video file is video/kiss-video.mp4. -->
+    <section class="wrap finale" id="finale" aria-labelledby="finale-title">
+      <div class="finale-card" id="finale-card">
+        <div class="finale-fx" id="finale-fx" aria-hidden="true"></div>
+        <p class="finale-eyebrow">One last thing</p>
+        <h2 id="finale-title">A kiss for you</h2>
+
+        <button class="kiss-seal" id="kiss-seal" type="button" aria-label="Tap for a kiss. A video will play.">
+          <span class="seal-disc">
+            <span class="seal-ring"></span>
+            <span class="seal-ring r2"></span>
+            <span class="seal-lips" aria-hidden="true">💋</span>
+          </span>
+          <span class="seal-text">Tap for a kiss</span>
+        </button>
+
+        <div class="kiss-film" id="kiss-film" hidden>
+          <video id="kiss-video" src="video/kiss-video.mp4" playsinline muted preload="auto" aria-label="A kiss for you"></video>
+        </div>
+
+        <div class="finale-end" id="finale-end" hidden>
+          <p class="end-script">Happy 4th Anniversary</p>
+          <p class="end-name">Roshni Rishi Chouhan</p>
+          <p class="end-line">Forever and ever, my love.</p>
+          <button class="again" id="kiss-again" type="button">Watch again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="closing">
+    <p class="script">Here's to forever</p>
+    <p class="small">Happy 4th anniversary, my Roshni.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
